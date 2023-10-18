@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigate</title>
+    <style>
+        
+            
+   
+/* CSS for navigation bar */
+
+
+/* Main container for image and content */
+.section-container {
+    display: flexbox;
+    justify-content: center;
+    align-items: flex-start;
+    /* Adjust the padding-top to provide space for the fixed navbar */
+}
+
+/* Image styles */
+.image-container {
+    width: 100%;
+    position:relative;
+}
+
+.image-container img {
+    width: 43%;
+    height: auto;
+    display: flex;
+    position:relative;
+    top: 100px;
+}
+
+/* Main content styles */
+.main-content {
+  width: 50%;
+    text-align: center;
+    position: absolute;
+    top: 150px;
+    right: 0;
+}
+
+/* Button styles */
+.button {
+    padding: 18px;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 20px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: black;
+    color: white;
+}
+
+.btn{
+    padding: 18px;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 20px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+}
+/* Details styles */
+.details {
+   position: relative;
+   padding-bottom: 60px; 
+   
+    display: none;
+    font-size:20px; /* Increase font size for text inside .details class */
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .section-container {
+        flex-direction: column;
+    }
+
+    .image-container,
+    .main-content {
+        width: 100%;
+    }
+}
+
+        h1 {
+    color: black;
+    font-size: x-large;
+    font-family: Brush Script MT, Brush Script Std, cursive;
+}
+.logo{
+            float: left;
+            height: 50px;
+            width: 50px;
+            background-color: rgba(0, 128, 0, 0.3);
+            border-radius: 51%;
+            padding: 4px;
+            margin-top: 13px;
+            margin-bottom: 5px;
+            border: 3px solid white;
+            display: flexbox;
+        }
+                
+    .leaf{
+        width: 15px;
+        height: 15px;
+        border: 2px solid white;
+        border-radius: 0 100%;
+        border-radius: 0 50% 50% 50%;
+        margin-top: -11px;
+        margin-left: 8px;
+    }
+    .leaf1{
+        width: 15px;
+        height: 15px;
+        border: 2px solid white;
+        border-radius: 100% 0;
+        border-radius: 0 50% 50% 50%;
+        margin-top: -20px;
+        margin-left: 25px;
+        transform: rotate(90deg);
+    }
+    .leaf2{
+        width: 15px;
+        height: 15px;
+        border: 2px solid white;
+        border-radius: 100% 0;
+        border-radius: 0 50% 50% 50%;
+        margin-top: 15px;
+        margin-left: 15px;
+        transform: rotate(50deg);
+    }
+    .navbar {
+                width: 100%;
+                background-color:gainsboro;
+                overflow: auto;
+                position: sticky;
+            }
+   
+
+.button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            
+
+        }
+        .question-container {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .question-container h2 {
+            margin-bottom: 10px;
+        }
+
+        .options-container {
+            margin-bottom: 20px;}
+           
+            .details {
+   position: relative;
+   padding-bottom: 60px; 
+   
+    display: none;
+    font-size:28px; /* Increase font size for text inside .details class */
+}
+/* Adjust this value based on the button height and spacing */
+
+ 
+.btn-container {
+   position: absolute;
+   bottom: -80px; /* Adjust this value according to your design */
+   left: 50%;
+   transform: translateX(-50%);
+} 
+
+
+
+
+#prevBtn {
+    bottom: 20px; /* Adjust this value according to your design */
+}
+
+#nextBtn {
+    bottom: 20px; /* Adjust this value according to your design */
+}
+p{
+     font-size:medium;
+}
+
+
+    </style>
+</head>
+<body>
+    <script>
+        function startSurvey() {
+            // Hide the start button
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('skipBtn').style.display = 'none';
+
+            // Show the details
+            document.querySelector('.details').style.display = 'block';
+        }
+
+        function skipSurvey() {
+            // Hide the start button
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('skipBtn').style.display = 'none';
+
+            // You can add code here to handle the "skip" action
+        }
+        // Define an array of questions and their options// Define an array of questions and their options
+      
+        const questions = [
+            { question: "Is doing yoga is your daily habit?", options: ["Yes","No","Frequently","Thrice in a week","Twice in aweek"] },
+            { question: "Did you know benefits of yoga?", options: ["Yes", "No", "I know some benenfits", "About particular asanas", "I know very well"] },
+            { question: "How often do you practice yoga?", options: ["Daily", "Weekly", "Monthly", "Rarely", "Never"] }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function displayQuestion() {
+    const questionContainer = document.querySelector('.details');
+    questionContainer.innerHTML = '';
+
+    const currentQuestion = questions[currentQuestionIndex];
+    const questionElement = document.createElement('h2');
+    questionElement.textContent = currentQuestion.question;
+    questionContainer.appendChild(questionElement);
+
+    const optionsContainer = document.createElement('div'); // Create a container for options
+    optionsContainer.classList.add('options-container');
+
+    currentQuestion.options.forEach(option => {
+        const optionDiv = document.createElement('div'); // Create a div for each option
+        const input = document.createElement('input');
+        input.setAttribute('type', 'checkbox');
+        input.setAttribute('name', 'answer');
+        input.setAttribute('value', option);
+        const label = document.createElement('label');
+        label.textContent = option;
+        optionDiv.appendChild(input);
+        optionDiv.appendChild(label);
+        optionsContainer.appendChild(optionDiv); // Append the option div to the options container
+    });
+
+    questionContainer.appendChild(optionsContainer); // Append the options container to the question container
+
+    // Show/hide navigation buttons based on current question index
+    if (currentQuestionIndex === 0) {
+        document.getElementById('prevBtn').style.display = 'none';
+    } else {
+        document.getElementById('prevBtn').style.display = 'block';
+    }
+
+    if (currentQuestionIndex === questions.length - 1) {
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'block'; // Show submit button for last question
+    } else {
+        document.getElementById('nextBtn').style.display = 'block';
+        document.getElementById('submitBtn').style.display = 'none'; // Hide submit button for other questions
+    }
+}
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        function startSurvey() {
+            // Hide the start button
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('skipBtn').style.display = 'none';
+
+            // Show the details
+            document.querySelector('.details').style.display = 'block';
+
+    
+            displayQuestion();
+        }
+
+        function skipSurvey() {
+            
+        }
+        function submitSurvey() {
+            
+			const startButton = document.getElementById("submitBtn");
+			  window.location.href="navigate2";
+		  
+    alert("Survey completed! Thank you for taking survey!");
+}
+
+
+document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+document.getElementById('prevBtn').addEventListener('click', previousQuestion);
+
+
+
+    </script>
+<div class="navbar">
+<div class="logo"><div class="leaf2"></div><div class="leaf"></div><div class="leaf1"></div></div>
+<h1 style=" font-size:x-large; font-family: Brush Script MT, Brush Script Std, cursiv;">&nbsp;&nbsp;Make Your move</h1>
+</div>
+
+    <div class="section-container">
+        <section class="section-1">
+            <div class="image-container">
+                <img src="https://alomoves.s3.amazonaws.com/manual_uploads/shared/surveys/onboarding/landing/large.jpg" alt="Yoga Image">
+            </div>
+            <div class="main-content">
+                <div class="text">
+                    <h2>&nbsp;WELCOME!</h2>
+                    <h1 style="font-size: 43px;"><i><b>LET'S FIND WHAT <br> YOUR MOVE.....</b></i></h1>
+                    <p style="font-size: 22px;">Answer a few questions to help us personalize your class recommendations.</p>
+                </div>
+                <div class="button-container">
+                  <button id="startBtn" class="button" onclick="startSurvey()">Take survey</button>
+                 <a href="dashboard" ><button id="skipBtn" class="button" onclick="skipSurvey()">Skip  for  now</button></a>
+                  <div class="details">
+                    <!-- Question 1 -->
+                    
+                    <h2>Question 1:</h2>
+                    <p>Is doing yoga your daily habit?</p>
+                    <input type="checkbox" name="question1" value="red"> Yes
+                    <input type="checkbox" name="question1" value="blue"> No
+                    <input type="checkbox" name="question1" value="green"> Frequently
+                    <input type="checkbox" name="question1" value="yellow"> Thrice in a week
+                    <input type="checkbox" name="question1" value="purple"> Twice in a week
+    
+                    <!-- Question 2 -->
+                    <h2>Question 2:</h2>
+                    <p>Did you know the benefits of yoga</p>
+                    <input type="checkbox" name="question2" value="goat"> Yes
+                    <input type="checkbox" name="question2" value="vghv"> No
+                    <input type="checkbox" name="question2" value="horse"> Some benefits i know
+                    <input type="checkbox" name="question2" value="rat"> About particular asanas
+                    <input type="checkbox" name="question2" value="sheep"> I know vey well
+    
+                    <!-- Question 3 -->
+                    <h2>Question 3:</h2>
+                    <p>How often do you practice yoga?</p>
+                    <input type="checkbox" name="question3" value="daily"> Daily
+                    <input type="checkbox" name="question3" value="weekly"> Weekly
+                    <input type="checkbox" name="question3" value="monthly"> Monthly
+                    <input type="checkbox" name="question3" value="rarely"> Rarely<br>
+                    <input type="checkbox" name="question3" value="never"> Never
+                   
+                </div><br><br><br>
+                <!-- Next and Previous buttons -->
+                <div class="btn-container">
+                
+                    <button id="prevBtn"  class="btn" onclick="previousQuestion()" style="display: none; top:-100px;">Previous Question</button>
+                    <button id="nextBtn" class="btn" onclick="nextQuestion()" style="display: none; left:300px;">Next Question</button>
+                    <button id="submitBtn" class="btn" onclick="submitSurvey()" style="display: none;">Submit</button>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+</body>
+</html>

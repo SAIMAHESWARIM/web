@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRESSRELIEF</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Your CSS styles here */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            height: 90px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            background-color: #333;
+            padding: 10px;
+        }
+
+        .option {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .option-header {
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-header i {
+            margin-left: 5px;
+        }
+
+        .option-content {
+            display: none;
+            background-color: white;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .option-content a {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .option:hover .option-content {
+            display: block;
+        }
+
+        .option-content a.active {
+            background-color: #ccc;
+            /* Change to the desired highlighting style */
+        }
+
+        .option-content a.active::before {
+            content: "\2713";
+            float: right;
+        }
+
+        .active {
+            font-weight: bold;
+        }
+
+        .video-container {
+            background-color: #333;
+        }
+
+        .video-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .video-item {
+            margin: 10px;
+            width: calc(25% - 20px);
+            /* Four columns with spacing */
+        }
+
+        .video-item video {
+            width: 300px;
+            height: 200px;
+        }
+
+        .logo {
+            float: left;
+            height: 50px;
+            width: 50px;
+            background-color: rgba(0, 128, 0, 0.3);
+            border-radius: 51%;
+            padding: 4px;
+            margin-top: 13px;
+            margin-bottom: 5px;
+            margin-left: -120;
+            border: 3px solid white;
+            display: flexbox;
+        }
+
+        .leaf {
+            width: 15px;
+            height: 15px;
+            border: 2px solid white;
+            border-radius: 0 100%;
+            border-radius: 0 50% 50% 50%;
+            margin-top: -11px;
+            margin-left: 8px;
+        }
+
+        .leaf1 {
+            width: 15px;
+            height: 15px;
+            border: 2px solid white;
+            border-radius: 100% 0;
+            border-radius: 0 50% 50% 50%;
+            margin-top: -20px;
+            margin-left: 25px;
+            transform: rotate(90deg);
+        }
+
+        .leaf2 {
+            width: 15px;
+            height: 15px;
+            border: 2px solid white;
+            border-radius: 100% 0;
+            border-radius: 0 50% 50% 50%;
+            margin-top: 15px;
+            margin-left: 15px;
+            transform: rotate(50deg);
+        }
+        .footer {
+    background: #000;
+    color: #8a8a8a;
+    font-size: 14px;
+    padding: 60px 0 20px;
+  }
+  
+  .footer p {
+    color: #8a8a8a;
+  }
+  
+  .footer h3 {
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-1,
+  .footer-col-2,
+  .footer-col-3,
+  .footer-col-4 {
+    min-width: 250px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-1 {
+    flex-basis: 30%;
+  }
+  
+  .footer-col-2 {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .footer-col-2 img {
+    width: 180px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-3,
+  .footer-col-4 {
+    flex-basis: 12%;
+    text-align: center;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  
+  .footer hr {
+    border: none;
+    background: #b5b5b5;
+    height: 1px;
+    margin: 20px 0;
+  }
+  
+  .copyright {
+    text-align: center;
+  }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <div class="leaf2"></div>
+            <div class="leaf"></div>
+            <div class="leaf1"></div>
+        </div>
+        <h1 style="color: aliceblue; font-size:x-large; font-family: Brush Script MT, Brush Script Std, cursive;">&nbsp;&nbsp;make Your move</h1>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2 style="text-align: center; font-size: 5rem; font-family: fantasy;">Class Finder</h2>
+            <p style="text-align: center; font-size: 3rem; font-family: cursive;">FIND WHAT MOVES YOU</p>
+        </div>
+        <div class="options">
+            <div class="option">
+                <div class="option-header" id="duration-option">
+                    <h3>Duration <i class="fas fa-chevron-down"></i></h3>
+                </div>
+                <div class="option-content" id="duration-content">
+                    <input type="range" min="0" max="60" value="0" class="duration-slider" id="duration-slider">
+                    <span id="duration-value">0 sec</span>
+                </div>
+            </div>
+            <div class="option">
+                <div class="option-header" id="instructor-option">
+                    <h3>Instructor <i class="fas fa-chevron-down"></i></h3>
+                </div>
+                <div class="option-content" id="instructor-content">
+                    <a href="#" data-instructor="sara">Sara</a>
+                    <a href="#" data-instructor="meghan">Meghan</a>
+                    <a href="#" data-instructor="eleven">Eleven</a>
+                    <a href="#" data-instructor="erica">Erica</a>
+                </div>
+            </div>
+            <div class="option">
+                <div class="option-header" id="style-option">
+                    <h3>Style <i class="fas fa-chevron-down"></i></h3>
+                </div>
+                <div class="option-content" id="style-content">
+                    <h1>Fittnes</h1>
+                    <a href="#" data-style="sukhasana">Sukhasana</a>
+                    <a href="#" data-style="breath">Breathing</a>
+                    <a href="#" data-style="feet">The Feet</a>
+                    <a href="#" data-style="sneak">Sneak pose</a>
+                </div>
+            </div>
+            <div class="option">
+                <div class="option-header" id="difficulty-option">
+                    <h3>Difficulty <i class="fas fa-chevron-down"></i></h3>
+                </div>
+                <div class="option-content" id="difficulty-content">
+                    <a href="#" data-difficulty="beginner">Beginner</a>
+                    <a href="#" data-difficulty="intermediate">Intermediate</a>
+                    <a href="#" data-difficulty="advanced">Advanced</a>
+                </div>
+            </div>
+            <div class="option">
+                <div class="option-header" id="intensity-option">
+                    <h3>Intensity <i class="fas fa-chevron-down"></i></h3>
+                </div>
+                <div class="option-content" id="intensity-content">
+                    <a href="#" data-intensity="low">Low</a>
+                    <a href="#" data-intensity="medium">Medium</a>
+                    <a href="#" data-intensity="high">High</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-container" id="video-list"></div>
+    </div>
+    <section>
+        <h2 id="section6">
+        <div class="footer">
+          <div class="container">
+            <div class="row">
+              <div class="footer-col-2">
+                <p>
+                  Our Purpose Is To Make Every Customer to Feel Helpful through our website
+                </p>
+              </div>
+        
+              <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                  <li>Coupons</li>
+                  <li>Blog Post</li>
+                  <li>Return Policy</li>
+                  <li>Join Affiliate</li>
+                </ul>
+              </div>
+        
+              <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                  <li>Facebook &nbsp; <i class="fab fa-facebook"></i></li>
+                  <li>Twitter &nbsp;<i class="fab fa-twitter"></i></li>
+                  <li>Instagram &nbsp;<i class="fab fa-instagram"></i></li>
+                  <li>YouTube &nbsp;<i class="fab fa-youtube"></i></li>
+                </ul>
+              </div>
+            </div>
+            <hr />
+            <p class="copyright">Copyright &copy; 2023 - make Your move</p>
+          </div>
+        </div>
+      </h2>
+      </section>
+    <script>
+        // Your JavaScript code here
+        const durationSlider = document.getElementById("duration-slider");
+        const durationValue = document.getElementById("duration-value");
+        const videoContainer = document.getElementById("video-list");
+        const instructorOptions = document.querySelectorAll("#instructor-content a");
+        const styleOptions = document.querySelectorAll("#style-content a");
+        const difficultyOptions = document.querySelectorAll("#difficulty-content a");
+        const intensityOptions = document.querySelectorAll("#intensity-content a");
+    
+
+        const videos = [
+            { url: "https://player.vimeo.com/external/562873409.hd.mp4?s=ec88c1714a3daf0b2fd79c81bbac876f7051ee05&profile_id=174&oauth2_token_id=57447761=", duration: 22, instructor: "sara", style: "sukhasana", difficulty: "beginner", intensity: "low" },
+            { url: "https://player.vimeo.com/external/415225360.sd.mp4?s=5a24712bbfe69ed2f86c68648e7fdc25eaf96acd&profile_id=164&oauth2_token_id=57447761=", duration: 55, instructor: "sara", style: "breath", difficulty: "beginner", intensity: "medium" },
+            { url: "https://player.vimeo.com/external/505675695.sd.mp4?s=4da19b4bb5431eb37a1d73887ab54a3acd6a94a4&profile_id=164&oauth2_token_id=57447761=", duration: 27, instructor: "sara", style: "feet", difficulty: "intermidiate", intensity: "high" },
+            { url: "https://player.vimeo.com/external/514568543.sd.mp4?s=451dc1de54e35b43aacf43d7032e6bdafc1322a1&profile_id=164&oauth2_token_id=57447761=", duration: 24, instructor: "sara", style: "sneak", difficulty: "advanced", intensity: "high" },
+            
+            
+            { url: "https://player.vimeo.com/external/568816746.sd.mp4?s=5342e62130c98d20c1286b9cc21266a4e540b2ca&profile_id=165&oauth2_token_id=57447761=", duration: 6, instructor: "eleven", style: "sukhasana", difficulty: "beginner", intensity: "low" },
+            { url: "https://player.vimeo.com/external/537476721.sd.mp4?s=1fefab2745671fb9214bbe376065eb3dd8bac8c1&profile_id=164&oauth2_token_id=57447761=", duration: 7, instructor: "elevan", style: "breath", difficulty: "beginner", intensity: "medium" },
+            { url: "https://player.vimeo.com/external/579559284.sd.mp4?s=0ba3b3da79f66065a5fe85e9ecbbcc6aad9cb83d&profile_id=164&oauth2_token_id=57447761=", duration: 25, instructor: "elevan", style: "feet", difficulty: "intermediate", intensity: "high" },
+            { url: "https://player.vimeo.com/external/514569213.sd.mp4?s=6d89a5664f46f867637506417cfd6f46411aea30&profile_id=164&oauth2_token_id=57447761=", duration: 11, instructor: "eleven", style: "sneak", difficulty: "advanced", intensity: "high" },
+
+            { url: "https://player.vimeo.com/external/582024242.sd.mp4?s=77fc767ca64444286e8d923a9a2d472d4512f647&profile_id=165&oauth2_token_id=57447761=", duration: 11, instructor: "erica", style: "sukhasana", difficulty: "beginner", intensity: "low" },
+            { url: "https://player.vimeo.com/external/559569874.hd.mp4?s=c97b63e9a237ea2ec61078281c3fb4746fef0e33&profile_id=174&oauth2_token_id=57447761=", duration: 12, instructor: "erica", style: "breath", difficulty: "beginner", intensity: "medium" },
+            { url: "https://player.vimeo.com/external/505664389.hd.mp4?s=0402d41981f25a6e40e6a89e3b40786b2d4b6f12&profile_id=174&oauth2_token_id=57447761=", duration: 27, instructor: "erica", style: "feet", difficulty: "intermidiate", intensity: "high" },
+            { url: "https://player.vimeo.com/external/536169280.sd.mp4?s=31bcaed91afe5b75f8cee864581364c5b33be266&profile_id=165&oauth2_token_id=57447761=", duration: 13, instructor: "erica", style: "sneak", difficulty: "advanced", intensity: "high" },
+
+
+            { url: "https://player.vimeo.com/external/565557473.sd.mp4?s=f2e2084256ae5abcdfee20d5652c659013e65be8&profile_id=165&oauth2_token_id=57447761", duration: 22, instructor: "meghan", style: "sukhasana", difficulty: "beginner", intensity: "high" },
+            { url: "https://player.vimeo.com/external/537290308.sd.mp4?s=1699ade6f40ecae14f77c50bea53721a84d70aa2&profile_id=164&oauth2_token_id=57447761", duration: 23, instructor: "meghan", style: "breath", difficulty: "beginner", intensity: "high" },
+            { url: "https://player.vimeo.com/external/544388061.sd.mp4?s=790de9718e1b289baa9a978561a09b54aa94ab9c&profile_id=164&oauth2_token_id=57447761=", duration: 9, instructor: "meghan", style: "feet", difficulty: "intermediate", intensity: "medium" },
+            { url: "https://player.vimeo.com/external/582024084.sd.mp4?s=04f8a4c1ac697139c9d0c970232c9c148c9c98ab&profile_id=165&oauth2_token_id=57447761=", duration: 12, instructor: "meghan", style: "sneak", difficulty: "advanced", intensity: "low" }
+        ];
+
+        // Initial update to display videos based on the default filter value
+        updateVideoList(90);
+       
+        /* ... (previous JavaScript code) */
+
+        // Update the video layout to display in rows with four columns
+        function updateVideoList(duration, selectedInstructor = "", selectedStyle = "", selectedDifficulty = "", selectedIntensity = "") {
+            videoContainer.innerHTML = "";  // Clear the existing videos
+
+            // Filter videos based on selected duration, instructor, style, difficulty, and intensity
+            const filteredVideos = videos.filter(video =>
+                video.duration <= duration &&
+                (selectedInstructor === "" || video.instructor === selectedInstructor) &&
+                (selectedStyle === "" || video.style === selectedStyle) &&
+                (selectedDifficulty === "" || video.difficulty === selectedDifficulty) &&
+                (selectedIntensity === "" || video.intensity === selectedIntensity)
+            );
+
+            // Display videos in rows with four columns
+            const videoRow = document.createElement("div");
+            videoRow.classList.add("video-row");
+            filteredVideos.forEach(video => {
+                const videoItem = createVideoElement(video.url);
+                videoRow.appendChild(videoItem);
+            });
+
+            videoContainer.appendChild(videoRow);
+        }
+
+        // Function to create video element
+        function createVideoElement(videoUrl) {
+            const div = document.createElement("div");
+            div.classList.add("video-item");
+            const video = document.createElement("video");
+            video.src = videoUrl;
+            video.controls = true;
+            div.appendChild(video);
+            return div;
+        }
+
+        // Event listener for the filter input
+        durationSlider.addEventListener("input", function () {
+            const value = durationSlider.value;
+            durationValue.textContent = value + " sec";
+            const selectedInstructor = getSelectedInstructor();
+            const selectedStyle = getSelectedStyle();
+            const selectedDifficulty = getSelectedDifficulty();
+            const selectedIntensity = getSelectedIntensity();
+            updateVideoList(value, selectedInstructor, selectedStyle, selectedDifficulty, selectedIntensity);
+        });
+
+        // Event listener for instructor filter
+        instructorOptions.forEach(option => {
+            option.addEventListener("click", function (event) {
+                const selectedInstructor = option.getAttribute("data-instructor");
+                const currentDuration = durationSlider.value;
+
+                // Remove the "active" class and tick symbol from all options
+                instructorOptions.forEach(option => {
+                    option.classList.remove("active");
+                });
+
+                // Add the "active" class to the clicked option
+                option.classList.add("active");
+
+                updateVideoList(currentDuration, selectedInstructor, getSelectedStyle(), getSelectedDifficulty(), getSelectedIntensity());
+
+                // Prevent the link from navigating to another page
+                event.preventDefault();
+            });
+        });
+
+        // Event listener for style filter
+        styleOptions.forEach(option => {
+            option.addEventListener("click", function (event) {
+                const selectedStyle = option.getAttribute("data-style");
+                const currentDuration = durationSlider.value;
+
+                // Remove the "active" class and tick symbol from all options
+                styleOptions.forEach(option => {
+                    option.classList.remove("active");
+                });
+
+                // Add the "active" class to the clicked option
+                option.classList.add("active");
+
+                updateVideoList(currentDuration, getSelectedInstructor(), selectedStyle, getSelectedDifficulty(), getSelectedIntensity());
+
+                // Prevent the link from navigating to another page
+                event.preventDefault();
+            });
+        });
+
+        // Event listener for difficulty filter
+        difficultyOptions.forEach(option => {
+            option.addEventListener("click", function (event) {
+                const selectedDifficulty = option.getAttribute("data-difficulty");
+                const currentDuration = durationSlider.value;
+
+                // Remove the "active" class and tick symbol from all options
+                difficultyOptions.forEach(option => {
+                    option.classList.remove("active");
+                });
+
+                // Add the "active" class to the clicked option
+                option.classList.add("active");
+
+                updateVideoList(currentDuration, getSelectedInstructor(), getSelectedStyle(), selectedDifficulty, getSelectedIntensity());
+
+                // Prevent the link from navigating to another page
+                event.preventDefault();
+            });
+        });
+
+        // Event listener for intensity filter
+        intensityOptions.forEach(option => {
+            option.addEventListener("click", function (event) {
+                const selectedIntensity = option.getAttribute("data-intensity");
+                const currentDuration = durationSlider.value;
+
+                // Remove the "active" class and tick symbol from all options
+                intensityOptions.forEach(option => {
+                    option.classList.remove("active");
+                });
+
+                // Add the "active" class to the clicked option
+                option.classList.add("active");
+
+                updateVideoList(currentDuration, getSelectedInstructor(), getSelectedStyle(), getSelectedDifficulty(), selectedIntensity);
+
+                // Prevent the link from navigating to another page
+                event.preventDefault();
+            });
+        });
+
+        function getSelectedInstructor() {
+            const selectedOption = document.querySelector("#instructor-content a.active");
+            if (selectedOption) {
+                return selectedOption.getAttribute("data-instructor");
+            }
+            return "";
+        }
+
+        function getSelectedStyle() {
+            const selectedOption = document.querySelector("#style-content a.active");
+            if (selectedOption) {
+                return selectedOption.getAttribute("data-style");
+            }
+            return "";
+        }
+
+        function getSelectedDifficulty() {
+            const selectedOption = document.querySelector("#difficulty-content a.active");
+            if (selectedOption) {
+                return selectedOption.getAttribute("data-difficulty");
+            }
+            return "";
+        }
+
+        function getSelectedIntensity() {
+            const selectedOption = document.querySelector("#intensity-content a.active");
+            if (selectedOption) {
+                return selectedOption.getAttribute("data-intensity");
+            }
+            return "";
+        }
+    </script>
+</body>
+
+</html>

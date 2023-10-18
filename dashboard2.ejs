@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html><head>
+  <title>
+    make Your move
+  </title>
+</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    .navbar a { 
+      float: right;
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .dropdown {
+      float: right;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .dropdown .dropbtn {
+      font-size: 16px;
+      border: none;
+      outline: none;
+      color: white;
+      padding: 14px 16px;
+      background-color: inherit;
+      font-family: inherit;
+      margin: 0;
+    }
+
+    .navbar a:hover,
+    .dropdown:hover .dropbtn {
+      background-color: red;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 100px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .logo {
+      float: left;
+      height: 50px;
+      width: 50px;
+      background-color: rgba(0, 128, 0, 0.3);
+      border-radius: 51%;
+      padding: 4px;
+      margin-top: 13px;
+      margin-bottom: 5px;
+      border: 3px solid white;
+      display: flexbox;
+    }
+
+    .leaf {
+      width: 15px;
+      height: 15px;
+      border: 2px solid white;
+      border-radius: 0 100%;
+      border-radius: 0 50% 50% 50%;
+      margin-top: -11px;
+      margin-left: 4px;
+    }
+
+    .leaf1 {
+      width: 15px;
+      height: 15px;
+      border: 2px solid white;
+      border-radius: 100% 0;
+      border-radius: 0 50% 50% 50%;
+      margin-top: -17px;
+      margin-left: 23px;
+      transform: rotate(90deg);
+    }
+
+    .leaf2 {
+      width: 15px;
+      height: 15px;
+      border: 2px solid white;
+      border-radius: 100% 0;
+      border-radius: 0 50% 50% 50%;
+      margin-top: 10px;
+      margin-left: 13px;
+      transform: rotate(50deg);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    img {
+      vertical-align: middle;
+    }
+
+    .container {
+      position: relative;
+    }
+
+    .mySlides {
+      display: none;
+    }
+
+    .cursor {
+      cursor: pointer;
+    }
+
+    .prev,
+    .next {
+      cursor: pointer;
+      position: absolute;
+      top: 40%;
+      width: auto;
+      padding: 16px;
+      margin-top: -50px;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover,
+    .next:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 12px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+    }
+
+    .caption-container {
+      text-align: center;
+      background-color: #222;
+      padding: 2px 16px;
+      color: white;
+    }
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .column {
+      float: left;
+      width: 16.66%;
+    }
+
+    .demo {
+      opacity: 0.6;
+    }
+
+    .active,
+    .demo:hover {
+      opacity: 1;
+    }
+
+    .btn:hover {
+      background-color: black;
+      color: white;
+    }
+
+    .service {
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-item {
+      flex: 1;
+      padding: 10px;
+      border: black solid 1px;
+      text-align: center;
+      margin: 20px 20px;
+      transition: all 1s;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay-button {
+      position: absolute;
+      top: 30%;
+      left: 20%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .video-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.video-item {
+    width: 400px; /* Adjusted width */
+    height: 200px; /* Adjusted height */
+    margin: 25px;
+    overflow: hidden;
+}
+
+.video-item iframe {
+    width: 100%;
+    height: 100%;
+}
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh; /* Center vertically in the viewport */
+}
+
+.button {
+    padding: 20px 40px; /* Added padding */
+    background-color: rgb(239, 113, 113);
+    color: black;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(121, 120, 120);
+}
+.footer {
+    background: #000;
+    color: #8a8a8a;
+    font-size: 14px;
+    padding: 60px 0 20px;
+  }
+  
+  .footer p {
+    color: #8a8a8a;
+  }
+  
+  .footer h3 {
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-1,
+  .footer-col-2,
+  .footer-col-3,
+  .footer-col-4 {
+    min-width: 250px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-1 {
+    flex-basis: 30%;
+  }
+  
+  .footer-col-2 {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .footer-col-2 img {
+    width: 180px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-3,
+  .footer-col-4 {
+    flex-basis: 12%;
+    text-align: center;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  .app-logo {
+    margin-top: 20px;
+  }
+  .app-logo img {
+    width: 140px;
+    opacity: 0.5;
+  }
+  
+  .footer hr {
+    border: none;
+    background: #b5b5b5;
+    height: 1px;
+    margin: 20px 0;
+  }
+  
+  .copyright {
+    text-align: center;
+  }
+  
+  .menu-icon {
+    width: 28px;
+    margin-left: 20px;
+    display: none;
+    text-align: center;
+  }
+
+  </style>
+  <body>
+    <section>
+      <div class="navbar">
+        <a href="#"
+          ><i class="fa fa-user-circle-o" style="margin-top: 10px;"></i></a
+        >
+        <div class="dropdown">
+          <button class="dropbtn">Home </button>
+          <div class="dropdown-content">
+            <a class="scroll-link" href="#section1">Yoga</a>
+            <a class="scroll-link" href="#section1">Fitness</a>
+            <a class="scroll-link" href="#section1">Stressrelief</a>
+            <a class="scroll-link" href="#section1">Selfcare</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">new</button>
+          <div class="dropdown-content">
+            <a class="scroll-link" href="#section2">PersonalisedYoga</a>
+            <a class="scroll-link" href="#section3">PersonalisedFitness</a>
+            <a class="scroll-link" href="#section4">PersonalisedStress</a>
+            <a class="scroll-link" href="#section5">PersonalisedSelfcare</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">aboutus </button>
+          <div class="dropdown-content">
+            <a class="scroll-link" href="#section6">About</a>
+            <a href="home2">Home</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Classes</button>
+          <div class="dropdown-content">
+            <a href="navigate2">Yoga</a>
+            <a href="fitness">Fitness</a>
+            <a href="stress">Stressrelief</a>
+            <a href="care">Selfcare</a>
+          </div>
+        </div>
+        <div class="logo">
+          <div class="leaf2"></div>
+          <div class="leaf"></div>
+          <div class="leaf1"></div>
+        </div>        <h1
+          style="color: aliceblue; font-size:x-large; font-family: Brush Script MT, Brush Script Std, cursiv;"
+          >&nbsp;&nbsp;make Your move</h1
+        >
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <div class="mySlides">
+          <div class="numbertext">1 / 6</div>
+          <img
+            src="https://images.pexels.com/photos/3094230/pexels-photo-3094230.jpeg?auto=compress&cs=tinysrgb&w=600"
+            style="width: 100%;"
+          />
+        </div>
+        <div class="mySlides">
+          <div class="numbertext">2 / 6</div>
+          <img
+            src="https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg?auto=compress&cs=tinysrgb&w=600"
+            style="width: 100%"
+          />
+        </div>
+        <div class="mySlides">
+          <div class="numbertext">3 / 6</div>
+          <img
+            src="https://images.pexels.com/photos/3822906/pexels-photo-3822906.jpeg?auto=compress&cs=tinysrgb&w=600"
+            style="width: 100%"
+          />
+        </div>
+        <div class="mySlides">
+          <div class="numbertext">4 / 6</div>
+          <img
+            src="https://images.pexels.com/photos/3286006/pexels-photo-3286006.jpeg?auto=compress&cs=tinysrgb&w=600"
+            style="width: 100%"
+          />
+        </div>
+        <div class="mySlides">
+          <div class="numbertext">5 / 6</div>
+          <img
+            src="https://images.pexels.com/photos/6698513/pexels-photo-6698513.jpeg?auto=compress&cs=tinysrgb&w=600"
+            style="width: 100%"
+          />
+        </div>
+        <div class="mySlides">
+          <div class="numbertext">6 / 6</div>
+          <img
+            src="https://images.pexels.com/photos/3772502/pexels-photo-3772502.jpeg?auto=compress&cs=tinysrgb&w=600"
+            style="width: 100%"
+          />
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+        <div class="caption-container">
+          <p id="caption"></p>
+        </div>
+        <div class="row">
+          <div class="column">
+            <img
+              class="demo cursor"
+              src="https://images.pexels.com/photos/3094230/pexels-photo-3094230.jpeg?auto=compress&cs=tinysrgb&w=600"
+              style="width: 100%"
+              onclick="currentSlide(1)"
+              alt="Yoga is the journey of the self, through the self, to the self.- The Bhagavad Gita"
+
+
+            />
+            <button
+              class="overlay-button"
+              id="button1"
+              onclick="start()"
+              style="padding: 25px; border-radius:20px; width:300px; font-size:30px;"
+              >Take a survey</button
+            >
+          </div>
+          <div class="column">
+            <img
+              class="demo cursor"
+              src="https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg?auto=compress&cs=tinysrgb&w=600"
+              style="width: 100%"
+              onclick="currentSlide(2)"
+              alt="Yoga is the art work of awareness on the canvas of body, mind, and soul.- Amit Ray"
+            />
+          </div>
+          <div class="column">
+            <img
+              class="demo cursor"
+              src="https://images.pexels.com/photos/3822906/pexels-photo-3822906.jpeg?auto=compress&cs=tinysrgb&w=600"
+              style="width: 100%"
+              onclick="currentSlide(3)"
+              alt="Yoga is the perfect opportunity to be curious about who you are.- Jason Crandell"
+            />
+          </div>
+          <div class="column">
+            <img
+              class="demo cursor"
+              src="https://images.pexels.com/photos/3286006/pexels-photo-3286006.jpeg?auto=compress&cs=tinysrgb&w=600"
+              style="width: 100%"
+              onclick="currentSlide(4)"
+              alt="Yoga is the space where flower blossoms.- Amit Ray"
+            />
+          </div>
+          <div class="column">
+            <img
+              class="demo cursor"
+              src="https://images.pexels.com/photos/6698513/pexels-photo-6698513.jpeg?auto=compress&cs=tinysrgb&w=600"
+              style="width: 100%"
+              onclick="currentSlide(5)"
+              alt="Yoga is not about touching your toes, it's about what you learn on the way down.- Jigar Gor"
+            />
+          </div>
+          <div class="column">
+            <img
+              class="demo cursor"
+              src="https://images.pexels.com/photos/3772502/pexels-photo-3772502.jpeg?auto=compress&cs=tinysrgb&w=600"
+              style="width: 100%"
+              onclick="currentSlide(6)"
+              alt="Yoga is the fountain of youth. You're only as young as your spine is flexible.- Bob Harper"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h1
+        style=" font-family: fantasy; letter-spacing: 3px;"
+      >Welcome, <%= user_name %>!</h1>
+      <p>
+        Ready to find your new favorite class? Get started with one of these
+        recommendations
+        <a href="navigate" style="color: black;"
+          >or retake the survey to update your suggestions.</a
+        >
+      </p>
+    </section>
+    <br /><br />
+    <h1 style="font-family: fantasy; letter-spacing: 7px;">
+      Recommended playlists
+    </h1>
+    <section class="service">
+      <div class="service-item">
+        <img
+          src="https://media.istockphoto.com/id/1433041855/photo/portrait-of-beautiful-young-female-making-yoga-practice-in-light-studio.webp?b=1&s=612x612&w=0&k=20&c=QurBSaLvBY9kP_6igTyMCOUR57kfDDwPY2_VaF1NHyM="
+          style="width: 200px; height: 200px;"
+        />
+        <p id="yogaDescription">
+          Get lost in your flow state with every yoga variety, from Vinyasa to
+          Hatha.
+        </p>
+        <h2 id="section1"><a id="yogaLink"href="navigate2"style="text-decoration: none; color: black; font-family: cursive;">YOGA<i class="fa fa-arrow-right"></i></a></h2>
+      </div>
+      <div class="service-item">
+        <img
+          src="https://alomoves.s3.amazonaws.com/manual_uploads/shared/start_moving/startmoving-fitness.jpg"
+          style="width: 200px; height: 200px;"
+        />
+        <p>
+          Level up your workouts with Pilates, Barre, HIIT, Strength, and much
+          more.
+        </p>
+        <h2><a href="fitness" style="text-decoration: none; color: black; font-family: cursive;">FITNESS<i class="fa fa-arrow-right"></i></a></h2>
+      </div>
+      <div class="service-item">
+        <img
+          src="https://d357mttm70bw7x.cloudfront.net/93fdaf50-0705-46bd-9a11-28f6e80969f0.jpg"
+          style="width: 200px; height: 200px;"
+        />
+        <p>
+          Embrace your thoughts and emotions to put yourself in a better
+          headspace.
+        </p>
+        <h2><a
+          href="stress"
+          style="text-decoration: none; color: black; font-family: cursive;"
+          >STRESSRELEIF<i class="fa fa-arrow-right"></i
+        ></a></h2>
+      </div>
+      <div class="service-item">
+        <img
+          src="https://alomoves.s3.amazonaws.com/manual_uploads/shared/start_moving/startmoving-meditation.jpg"
+          style="width: 200px; height: 200px;"
+        />
+        <p>
+          Unwind with meditative rituals like dry brushing, gua sha, and
+          journaling.
+        </p>
+        <h2><a
+          href="care"
+          style="text-decoration: none; color: black; font-family: cursive;"
+          >SELFCARE<i class="fa fa-arrow-right"></i
+        ></a></h2>
+      </div>
+    </section>
+    <h1 style="font-family: fantasy; font-size: 3rem; text-align: center;">Personalised Sections</h1>
+    <h2 style="font-family: fantasy;" id="section2">See More Yoga Videos</h2>
+    <section style="background-color: #333;">
+      <div class="video-container">
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://player.vimeo.com/external/392196341.sd.mp4?s=df11b6fdc5e2ca483d691b90380303eb2f9f28aa&profile_id=165&oauth2_token_id=57447761" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://player.vimeo.com/external/413026926.sd.mp4?s=f5a0b695826862138f13b7f31f7f2749bb05fc71&profile_id=164&oauth2_token_id=57447761" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://player.vimeo.com/external/416602494.sd.mp4?s=54fbaeaa610c20f96030f95acd5fd5884fe7a285&profile_id=164&oauth2_token_id=57447761" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    </section>
+    <p style="text-align: center;">You can see the all videos in below page</p>
+    <section>
+      <div class="center-wrapper">
+        <a href="navigate2" class="button">See more</a>
+    </div>
+    </section>
+    <h2 style="font-family: fantasy;" id="section3">See More Fitness Videos</h2>
+    <section style="background-color: #333;">
+      <div class="video-container">
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://player.vimeo.com/external/403637875.sd.mp4?s=203929c386ecb701b2d70b551df5450a45a38ec0&profile_id=164&oauth2_token_id=57447761" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://player.vimeo.com/external/435700927.sd.mp4?s=2bf0ce30aa77b66d081bdd1b263ef66daedea7f6&profile_id=164&oauth2_token_id=57447761" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://player.vimeo.com/external/412612310.sd.mp4?s=926ca32375da45a8b9167a7cc061c182e81ce46d&profile_id=164&oauth2_token_id=57447761" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://player.vimeo.com/external/474221966.sd.mp4?s=61e79e65068b8df9e73d15cebc57bf87715cc21f&profile_id=164&oauth2_token_id=57447761" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    </section>
+    <p style="text-align: center;">You can see the all videos in below page</p>
+    <section>
+      <div class="center-wrapper">
+        <a href="fitness" class="button">See more</a>
+    </div>
+    </section>
+    <h2 style="font-family: fantasy;" id="section4">See More Stressrelief Videos</h2>
+    <section style="background-color: #333;">
+      <div class="video-container">
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    </section>
+    <p style="text-align: center;">You can see the all videos in below page</p>
+    <section>
+      <div class="center-wrapper">
+        <a href="stress" class="button">See more</a>
+    </div>
+    </section>
+    <h2 style="font-family: fantasy;" id="section5">See More Selfcare Videos</h2>
+    <section style="background-color: #333;">
+      <div class="video-container">
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-item">
+            <iframe width="400" height="200" src="https://media.istockphoto.com/id/1478268432/video/woman-doing-yoga-on-the-background-of-the-sea.mp4?s=mp4-640x640-is&k=20&c=uNLOmpgL_be6PMFJeQ0JEHGIkcF-8y6V4KR1lzfOmWM=" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    </section>
+    <p style="text-align: center;">You can see the all videos in below page</p>
+    <section>
+      <div class="center-wrapper">
+        <a href="care" class="button">See more</a>
+    </div>
+    </section>
+    <section>
+      <h2 id="section6">
+      <div class="footer">
+        <div class="container">
+          <div class="row">
+            <div class="footer-col-2">
+              <p>
+                Our Purpose Is To Make Every Customer to Feel Helpful through our website
+              </p>
+            </div>
+      
+            <div class="footer-col-3">
+              <h3>Useful Links</h3>
+              <ul>
+                <li>Coupons</li>
+                <li>Blog Post</li>
+                <li>Return Policy</li>
+                <li>Join Affiliate</li>
+              </ul>
+            </div>
+      
+            <div class="footer-col-4">
+              <h3>Follow us</h3>
+              <ul>
+                <li>Facebook &nbsp; <i class="fab fa-facebook"></i></li>
+                <li>Twitter &nbsp;<i class="fab fa-twitter"></i></li>
+                <li>Instagram &nbsp;<i class="fab fa-instagram"></i></li>
+                <li>YouTube &nbsp;<i class="fab fa-youtube"></i></li>
+              </ul>
+            </div>
+          </div>
+          <hr />
+          <p class="copyright">Copyright &copy; 2021 - Red Store</p>
+        </div>
+      </div>
+    </h2>
+    </section>
+
+    <script>
+      let slideIndex = 1;
+      showSlides(slideIndex);
+
+      function plusSlides(n) {
+        showSlides((slideIndex += n));
+      }
+
+      function currentSlide(n) {
+        showSlides((slideIndex = n));
+      }
+
+      function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("demo");
+        let captionText = document.getElementById("caption");
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        if (n < 1) {
+          slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+      }
+      function start() {
+        console.log("Start button clicked!");
+        document.getElementById('button1').textContent = 'Take survey ';
+        window.location.href = "navigate";
+      }
+    </script>
+  </body>
+</html>
